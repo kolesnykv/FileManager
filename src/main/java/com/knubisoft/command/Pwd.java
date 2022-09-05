@@ -2,7 +2,7 @@ package com.knubisoft.command;
 
 import java.util.List;
 
-public class Pwd extends Command{
+public class Pwd extends Command {
 
     public Pwd(Context context) {
         super(context);

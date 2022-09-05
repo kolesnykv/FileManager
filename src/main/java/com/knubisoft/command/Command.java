@@ -6,6 +6,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public abstract class Command {
-        protected final Context context;
-        public abstract String execute(List<String> args);
+    protected final Context context;
+
+    public abstract String execute(List<String> args);
 }

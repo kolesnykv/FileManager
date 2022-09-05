@@ -20,26 +20,26 @@ public class Main {
     }
 
     private static void performCommands(Context context, Map<String, Command> availableCommands) {
-    Scanner scanner = new Scanner(System.in);
-    while(true) {
-        String line = scanner.nextLine();
-        if (StringUtils.isBlank(line)) {
-            continue;
-        }
-        List<String> commandWithArgs = Arrays.asList(line.split(" "));
-        String commandName = commandWithArgs.get(0);
-        if (commandName.equals("q") || commandName.equals("quit")) {
-            break;
-        }
-        Command command = availableCommands.getOrDefault(commandName, new Command(context) {
-            @Override
-            public String execute(List<String> args) {
-                return "Unknown command "+ commandName;
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String line = scanner.nextLine();
+            if (StringUtils.isBlank(line)) {
+                continue;
             }
-        });
-        List<String> args = commandWithArgs.subList(1, commandWithArgs.size());
-        System.out.println(command.execute(args));
-    }
+            List<String> commandWithArgs = Arrays.asList(line.split(" "));
+            String commandName = commandWithArgs.get(0);
+            if (commandName.equals("q") || commandName.equals("quit")) {
+                break;
+            }
+            Command command = availableCommands.getOrDefault(commandName, new Command(context) {
+                @Override
+                public String execute(List<String> args) {
+                    return "Unknown command " + commandName;
+                }
+            });
+            List<String> args = commandWithArgs.subList(1, commandWithArgs.size());
+            System.out.println(command.execute(args));
+        }
     }
 
     @SneakyThrows
@@ -47,7 +47,7 @@ public class Main {
         Reflections reflection = new Reflections("com.knubisoft.command", Scanners.SubTypes);
         Set<Class<? extends Command>> allExtendingClasses = reflection.getSubTypesOf(Command.class);
         Map<String, Command> commandNameToFunc = new LinkedHashMap<>();
-        for (Class<? extends Command> cls: allExtendingClasses) {
+        for (Class<? extends Command> cls : allExtendingClasses) {
             Command instance = cls.getDeclaredConstructor(Context.class).newInstance(context);
             commandNameToFunc.put(cls.getSimpleName().toLowerCase(), instance);
         }
