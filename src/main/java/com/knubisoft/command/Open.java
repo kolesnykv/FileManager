@@ -17,13 +17,18 @@ public class Open extends Command {
     @Override
     public String execute(List<String> args) {
         File currentDirectory = context.getCurrentDirectory();
-        File fileToOpen = new File(currentDirectory, args.get(0) + ".txt");
+        if (args.isEmpty()) {
+            return "Please add file as arg";
+        }
+        File fileToOpen = new File(currentDirectory, args.get(0));
         if (!fileToOpen.exists()) {
             return "No such file to open";
-        } else {
-            return "Content of the file " +
-                    fileToOpen.getName() + ":\n" +
-                    FileUtils.readFileToString(fileToOpen, StandardCharsets.UTF_8);
         }
+        if(!fileToOpen.isFile()) {
+            return "To move through directories use \"cd\" command";
+        }
+        return "Content of the file " +
+                fileToOpen.getName() + ":\n" +
+                FileUtils.readFileToString(fileToOpen, StandardCharsets.UTF_8);
     }
 }

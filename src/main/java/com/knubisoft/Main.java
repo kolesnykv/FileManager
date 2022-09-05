@@ -8,12 +8,12 @@ import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Context context = new Context(null, new File(Paths.get(Main.class.getPackageName()).toAbsolutePath().toUri()));
+
+        Context context = new Context(null, new File(args[0]));
         Map<String, Command> availableCommands = getCommands(context);
         context.setCommandMap(availableCommands);
         performCommands(context, availableCommands);

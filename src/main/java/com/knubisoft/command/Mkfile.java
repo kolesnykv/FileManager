@@ -14,13 +14,16 @@ public class Mkfile extends Command {
     @SneakyThrows
     @Override
     public String execute(List<String> args) {
+        if (args.isEmpty()) {
+            return "Please add file name as arg";
+        }
         File path = context.getCurrentDirectory();
-        File fileToCreate = new File(path.getAbsolutePath() + "//" + args.get(0));
+        File fileToCreate = new File(path.getAbsolutePath(), args.get(0));
         boolean result = fileToCreate.createNewFile();
         if (result) {
-            return "file successfully created " + fileToCreate.getAbsolutePath();
+            return "file " + fileToCreate.getName() + " successfully created";
         } else {
-            return "Whoopsy File already exist at location: " + fileToCreate.getAbsolutePath();
+            return "Whoopsy File" + fileToCreate.getName() + " already exist at location: " + fileToCreate.getAbsolutePath();
         }
     }
 }

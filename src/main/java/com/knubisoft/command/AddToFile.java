@@ -22,7 +22,7 @@ public class AddToFile extends Command {
         if (!fileToOpen.exists()) {
             return "No such file to write into";
         } else {
-            System.out.println("Input info u wanna add to file:");
+            System.out.println("Input info u wanna add to end of the file:");
             Scanner sc = new Scanner(System.in);
             String stringToAdd = sc.nextLine();
             String content = FileUtils.readFileToString(fileToOpen, StandardCharsets.UTF_8);
